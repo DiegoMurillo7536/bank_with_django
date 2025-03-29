@@ -1,1 +1,2 @@
-from .account_type import AccountTypeAdmin
+from .account_type import *
+from .transaction_type import *
