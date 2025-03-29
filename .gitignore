@@ -1,8 +1,15 @@
 .env
-bank/__pycache__/
-bank/__pycache__/
-bank/migrations/__pycache__/
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
 bank/migrations/*
+!bank/migrations/__init__.py
+bank/migrations/__pycache__/
 bank/models/__pycache__/
-core/__pycache__/
 bank/admin/__pycache__/
