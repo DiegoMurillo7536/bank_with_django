@@ -2,6 +2,7 @@
 bank/__pycache__/
 bank/__pycache__/
 bank/migrations/__pycache__/
-bank/migrations/
+bank/migrations/*
 bank/models/__pycache__/
 core/__pycache__/
+bank/admin/__pycache__/
