@@ -29,6 +29,10 @@ class Account(models.Model):
             except UserProfile.DoesNotExist:
                 raise ValueError("El usuario no tiene un perfil de usuario asociado.")
         super().save(*args, **kwargs)
+        
+    def top_account(self, amount,*args, **kwargs):
+        self.amount += amount
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'bank_account'
