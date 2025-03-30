@@ -1,54 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="container mt-4">
-    <h1 class="mb-4">Welcome, {{ user.username }}</h1>
-    <h2 class="mb-4">Mis Cuentas</h2>
-    <a href="{% url 'bank:logout' %}" class="btn btn-primary">Cerrar sesión</a>
-    {% if accounts %}
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Número de Cuenta</th>
-                        <th>Tipo de Cuenta</th>
-                        <th>Saldo</th>
-                        <th>Fecha de Creación</th>
-                        <th>Está exenta del 4x1000</th>
-                        <th>Está activa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for account in accounts %}
-                        <tr>
-                            <td>{{ account.account_name }}</td>
-                            <td>{{ account.account_type }}</td>
-                            <td class="text-end">${{ account.amount|floatformat:2 }}</td>
-                            <td>{{ account.created_at|date:"d/m/Y" }}</td>
-                            <td>
-                                {% if account.is_exempt %}
-                                    <span class="badge bg-success">Sí</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">No</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if account.is_active %}
-                                    <span class="badge bg-success">Activa</span>
-                                {% else %}
-                                    <a href="{% url 'bank:go_to_activate_account' account.id %}" class="badge bg-secondary">Activa tu cuenta haciendo click aqui</a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <div class="alert alert-info">
-            No tienes cuentas registradas.
-        </div>
-    {% endif %}
-</div>
+    {% include 'bank/account/get_all_accounts.html' %}
+    {% include 'transaction/make_transaction.html' %}
 {% endblock %}
