@@ -1,3 +1,53 @@
-<h1>Bank</h1> 
-<p>Welcome, {{ user.username }}</p>
-<a href="{% url 'logout' %}">Logout</a>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Bienvenida, {{ user.username }}</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mb-4">Para activar tu cuenta. Ingresa un monto mayor a 10.000 cop</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input type="number" class="form-control" name="activation_amount" placeholder="20.000" required>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Activar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h9>     .</h9>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-7">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">Haz una transacción</h2>
+                        <h4 class="card-title mb-4">Ingresa el nombre de la cuenta</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="activation_amount" placeholder="Nombre" required>
+                            </div>
+                            <h4 class="card-title mb-4">Ingresa el monto a enviar</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input type="number" class="form-control" name="activation_amount" placeholder="20.000" required>
+                            </div>
+                            <div>    
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    {% endblock %}
