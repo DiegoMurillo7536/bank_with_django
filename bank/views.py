@@ -64,7 +64,7 @@ def make_transaction(request):
             )
             transaction.save()
             messages.success(request, 'Transacción realizada correctamente')
-    return redirect('bank:index', messages=messages)
+    return redirect('bank:index')
 
 def top_account(request, account_id):
     account = Account.objects.get(id=account_id)
