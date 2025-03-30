@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from .forms.registration_form import RegistrationForm
 from django.core.exceptions import ValidationError
 from .models import Account
+from .forms.account_activate_form import AccountActivateForm
 # Create your views here.
 @login_required
 def bank(request):
@@ -17,7 +18,7 @@ def bank(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('bank:index')
 
 def register_user(request):
     if request.method == 'POST':
@@ -31,3 +32,16 @@ def register_user(request):
     else:
         form = RegistrationForm()
     return render(request, 'bank/register.html', {'form': form})
+
+def go_to_activate_account(request, account_id):
+    account = Account.objects.get(id=account_id)
+    if request.method == 'POST':
+        form = AccountActivateForm(request.POST)
+        if form.is_valid():
+            account.amount = form.cleaned_data['amount']
+            account.is_active = True
+            account.save()
+            return redirect('bank:index')
+    else:
+        form = AccountActivateForm()
+    return render(request, 'bank/account/activate_account.html', {'form': form})

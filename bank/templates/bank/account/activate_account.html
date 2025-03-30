@@ -1,7 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .error-message {
+        color: red;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid red;
+        background-color: #ffe6e6;
+    }
+    .error-text {
+        margin: 5px 0;
+    }
+</style>
+
 <h1>Activar tu cuenta</h1>
 <p>Para activar tu cuenta, por favor ingresa un monto mayor a 10.000 COP</p>
+
+{% if form.errors %}
+    <div class="error-message">
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p class="error-text">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}
+
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+        <p>
+            {{ field.label_tag }}
+            {{ field }}
+        </p>
+    {% endfor %}
     <button type="submit">Activar cuenta</button>
 </form>
+<a href="{% url 'bank:index' %}">Volver a la página principal</a>
+{% endblock %}
