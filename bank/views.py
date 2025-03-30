@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from .forms import RegistrationForm
+from .forms.registration_form import RegistrationForm
 from django.core.exceptions import ValidationError
+from .models import Account
 # Create your views here.
 @login_required
 def bank(request):
-    return render(request, 'bank/bank.html')
+    # Obtener todas las cuentas del usuario actual
+    accounts = Account.objects.filter(user_id=request.user)
+    
+    context = {
+        'accounts': accounts,
+    }
+    return render(request, 'bank/bank.html', context)
 
 def logout_view(request):
     logout(request)

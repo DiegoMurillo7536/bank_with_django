@@ -1,0 +1,7 @@
+<h1>Activar tu cuenta</h1>
+<p>Para activar tu cuenta, por favor ingresa un monto mayor a 10.000 COP</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Activar cuenta</button>
+</form>

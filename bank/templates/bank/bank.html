@@ -1,3 +1,49 @@
-<h1>Bank</h1> 
-<p>Welcome, {{ user.username }}</p>
-<a href="{% url 'logout' %}">Logout</a>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome, {{ user.username }}</h1>
+    <h2 class="mb-4">Mis Cuentas</h2>
+    {% if accounts %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Número de Cuenta</th>
+                        <th>Tipo de Cuenta</th>
+                        <th>Saldo</th>
+                        <th>Fecha de Creación</th>
+                        <th>Está exenta del 4x1000</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                        <tr>
+                            <td>{{ account.account_name }}</td>
+                            <td>{{ account.account_type }}</td>
+                            <td class="text-end">${{ account.amount|floatformat:2 }}</td>
+                            <td>{{ account.created_at|date:"d/m/Y" }}</td>
+                            <td>
+                                {% if account.is_exempt %}
+                                    <span class="badge bg-success">Sí</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">No</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'bank:go_to_activate_account' account.id %}" class="btn btn-secondary">Activar tu cuenta</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No tienes cuentas registradas.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
